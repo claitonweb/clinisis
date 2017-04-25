@@ -1,0 +1,39 @@
+<form id="form-validation" novalidate name='cadastro' method="post">
+	<div class="block">
+		<div class="form-horizontal">
+			<div class="form-group form-group-sm col-lg-12" >
+
+				<div class="row">
+				   <div class="col-xs-6 col-md-3" ng-class="{ 'has-error': cadastro.nome.$touched && cadastro.nome.$invalid }">
+					  	<label class="col-md-4 control-label" for="nome">Nome <span class="text-danger">*</span></label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" required name="nome" id="nome" ng-model='model.nome'>
+						</div>
+						<div class="help-block" ng-messages="cadastro.nome.$error" ng-show="cadastro.nome.$touched">
+							<div ng-messages-include="core/common/views/form-messages.html"></div>
+						</div>
+					</div>
+
+					<div class="col-xs-6 col-md-3" ng-class="{ 'has-error': cadastro.codigo.$touched && cadastro.codigo.$invalid }">
+					  	<label class="col-md-4 control-label" for="codigo">Código <span class="text-danger">*</span></label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" required name="codigo" id="codigo" ng-model='model.codigo'>
+						</div>
+						<div class="help-block" ng-messages="cadastro.codigo.$error" ng-show="cadastro.codigo.$touched">
+							<div ng-messages-include="core/common/views/form-messages.html"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-12 text-right">
+						<div class="form-group form-actions">
+							<button type="button" class="btn btn-effect-ripple btn-primary" ng-click='salvar()'>Salvar</button>
+							<a class="btn btn-effect-ripple btn-danger" ui-sref="{{routeLista}}">Cancelar</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

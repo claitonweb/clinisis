@@ -1,0 +1,5 @@
+<input-check field="associado" label="Associado"></input-check>
+<input-number field='pgqp' label="Adesão ao PGQP" min="0"></input-number>
+<input-select field="planospagamento" label="Plano de Pagamento" options="pp" ngrequired='eassociado()'></input-select>
+<input-number field="diavencimento" label="Dia de Vencimento" ngrequired='eassociado()' min="1" max="31"></input-number>
+<input-textarea field="observacoes" label="Observações"></input-textarea>

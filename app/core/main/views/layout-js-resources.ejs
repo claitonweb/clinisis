@@ -1,0 +1,68 @@
+
+<script src="core/common/base/BaseController.js"></script>
+<script src="core/common/directives/form-directives.js"></script>
+
+<script src="core/main/config.js"></script>
+<script src="core/common/directives/last-repeater-element.js"></script>
+<script src="core/common/services/InterceptorService.js"></script>
+<script src="core/main/load.js"></script>
+
+<script src="core/main/run.js"></script>
+<%
+var profile = 'adm';
+var arrayProfileFiles = ['main-controller','index-controller','menus','states','modules-to-load'];
+%>
+
+<script src="core/main/login/js/controller.js"></script>
+<script src="core/main/login/js/states.js"></script>
+
+<%
+if(usuario == undefined){
+    if(profileatual == undefined || profileatual==''){
+        profile = "visitante";
+    }else{
+        profile = profileatual;
+    }
+    
+    
+    %>
+    
+    <%
+}else{
+    if(profileatual == undefined || profileatual==''){
+        profile = "visitante";
+    }else{
+        profile = profileatual;
+    }
+}
+
+for (var fileInd in arrayProfileFiles){
+    if(fs.existsSync("public/core/main/profiles/"+profile+"/js/"+arrayProfileFiles[fileInd]+".js")){ %>
+        <script src="core/main/profiles/<%=profile%>/js/<%=arrayProfileFiles[fileInd]%>.js"></script>
+    <% }
+} %>
+
+
+
+<% for (var modName in modules){ %>
+    <!--script src="modules/<%=modName%>/states.js"></script-->
+    <% for (var resName in modules[modName]){
+        if(fs.existsSync("public/modules/"+modName+"/"+resName+"/js/controller.js")){ %>
+            <script src="modules/<%=modName%>/<%=resName%>/js/controller.js"></script>
+        <% }
+    } %>
+<% } %>
+
+<% if(profile == 'cliente'){ %>
+    <script src="modules/atendimentos/compra/js/compracliente.js"></script>
+    <script src="modules/atendimentos/compra/js/cupom.js"></script>
+<% } %>
+
+<script src="modules/atendimentos/consulta/js/visualizar.js"></script>
+<script src="modules/atendimentos/compra/js/atendimento.js"></script>
+<script src="modules/atendimentos/compra/js/compraexterna.js"></script>
+<script src="modules/atendimentos/consulta/js/consultaexterna.js"></script>
+<script src="modules/estoque/saidas/js/inventario.js"></script>
+<script src="modules/financeiro/compras/js/vendas.js"></script>
+
+

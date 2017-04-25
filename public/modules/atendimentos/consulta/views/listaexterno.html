@@ -1,0 +1,97 @@
+<div ng-include="'modules/atendimentos/consulta/views/lista-header.html'"></div>
+
+<div class="block full">
+	<div class="block-title">
+		<h2>Registros Encontrados</h2>
+	</div>
+	<div class="table-responsive">
+		<table id="example-datatable" class="table table-striped table-bordered table-vcenter">
+			<thead>
+				<tr>
+					<th>Compra</th>
+					<th>Cupom</th>
+					<th>Dt Atend</th>
+					<th>Cliente</th>
+					<th>Profissional</th>
+					<th>Vacina</th>
+					<th>Status</th>
+					<th width="200">Atendimento</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr ng-repeat="obj in compras | orderBy: ['status','data_atendimento'] " ng-if="obj.saida.compra">
+					<td>
+						<span>
+							{{obj.saida.compra.codigo}}
+						</span>		
+					</td>
+					<td>
+						<span ng-if="obj.saida.compra.cupom">
+						 		{{obj.saida.compra.cupom.codcupom}} / {{obj.saida.compra.cupom.codigo_cupom}} ({{obj.saida.compra.cupom.nome}})
+						</span>
+					</td>
+					<td>
+						<span>
+							{{obj.data_atendimento | date : 'dd/MM/yyyy H:mm'}}
+						</span>
+					</td>
+					<td>
+						<span>
+							{{obj.cliente.nome}}
+						</span>		
+					</td>
+					<td>
+						<span>
+							{{obj.profissional.nome}}
+						</span>		
+					</td>
+					
+					<td>
+						<span>
+							{{obj.saida.lancamento.vacina.nome}}
+						</span>		
+					</td>
+
+					<td>
+						<span ng-if="obj.status == '1_AG'">
+							Aguardando
+						</span>
+						<span ng-if="obj.status == '2_AT'">
+							Em Atendimento
+						</span>
+						<span ng-if="obj.status == '89_FI'">
+							Finalizado
+						</span>
+						<span ng-if="obj.status == '99_CA'">
+							Cancelado
+						</span>		
+					</td>
+
+					<td>
+						<div class="btn-group" role="group" aria-label="...">
+						<a ui-sref="atendimentos-compra-atendimento({id : '{{obj.saida._id}}',idatendimento : '{{obj._id}}' })" class="btn btn-primary btn-sm" title="Gerar Atendimento">
+							<!--span class="glyphicon glyphicon-eye-open"></span-->
+							<span class="glyphicon glyphicon-pencil">
+								
+							</span>
+						</a>
+						<a 
+						   ng-if="obj.status=='1_AG'"	
+						   ng-click="iniciaratendimento(obj)" 
+						   class="btn btn-success btn-sm" 
+						   title="Iniciar Atendimento">
+							<!--span class="glyphicon glyphicon-eye-open"></span-->
+							<span class="glyphicon glyphicon-list-alt">
+								
+							</span>
+							Iniciar
+						</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+

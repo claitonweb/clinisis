@@ -1,0 +1,270 @@
+<!-- Search Results Header -->
+<script type="text/ng-template" id="justificativa">
+	<h1 ng-if="clienteselecionado.tipopessoa=='f'">
+		{{clienteselecionado.nome}}
+	</h1>
+	<h1 ng-if="clienteselecionado.tipopessoa=='j'">
+		{{clienteselecionado.razaosocial}}
+	</h1>
+	<div class="dialog-contents">
+		<div class="row">
+			<div class="form-group col-lg-12">
+			{{justificativa}}
+				<input type="text" ng-model='clienteselecionado.justificativa' class="form-control" placeholder="Informe uma justificativa">
+			</div>
+			<div class="form-group col-lg-12">
+				<div class="text-right">
+					<a href 
+						 ng-click="rejeitar()"
+						 class="btn btn-effect-ripple btn-effect-ripple btn-danger">Rejeitar</a>
+				</div>	 
+			</div>	 
+		</div>	 
+	</div>	
+</script>
+
+<div class="content-header">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="header-section">
+				<h1>Aprovação de Clientes</h1>
+			</div>
+		</div>
+		<div class="col-sm-6 hidden-xs">
+			<div class="header-section">
+				<ul class="breadcrumb breadcrumb-top">
+					<li>Início</li>
+					<li>Aprovação</li>
+					<li>Clientes</li>
+				</ul>
+			</div>
+		</div>
+		<div class="header-section">
+			<div class="form-horizontal">
+				<div class="form-group col-lg-12"></div>
+				<div class="form-group col-lg-9">
+					<div class="col-md-6">
+						<input type="text" ng-model='pesquisacliente.pesquisaunica' class="form-control" placeholder="Pesquise pelo ID, CNPJ/CPF ou Razão Social/Nome">
+					</div>
+					<a href ng-click='pesquisar()' class="btn btn-effect-ripple btn-effect-ripple btn-primary">Pesquisar</a>
+				</div>
+				<div class="form-group col-lg-3">
+					<div class="text-right">
+						<a href ng-click="pesquisaAvancada = !pesquisaAvancada" class="btn btn-effect-ripple btn-effect-ripple btn-primary">Pesquisa Avançada</a>
+						<a href ui-sref="cadastros-clientes-novo" class="btn btn-effect-ripple btn-effect-ripple btn-primary">Novo</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="block full" ng-init="pesquisaAvancada = false" ng-show="pesquisaAvancada">
+	<div class="block-title">
+		<h2>Pesquisa Avançada</h2></div>
+
+	<div class="form-horizontal">
+		<div class="form-group form-group-sm col-lg-12">
+			<div class="form-group form-group-sm col-lg-4">
+				<label class="col-md-3 control-label" for="val-username">ID</label>
+				<div class="col-md-6">
+					<input type="text" id="val-username" name="val-username" class="form-control" placeholder="Digite somente números">
+				</div>
+			</div>
+			<div class="form-group form-group-sm col-lg-4">
+				<label class="col-md-3 control-label">Atividade</label>
+				<div class="col-md-6">
+					<select id="atividade" name="atividade" 
+							ng-model='pesquisacliente.atividade'
+							ng-options="atividade._id as atividade.codigo +' - '+atividade.nome for atividade in atividades"
+							class="form-control">
+						<option value="">Todos</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group form-group-sm col-lg-4">
+				<label class="col-md-3 control-label" for="tipopessoa">Tipo Pessoa</label>
+				<div class="col-md-6">
+					<select id="tipopessoa" ng-model='pesquisacliente.tipopessoa' name="tipopessoa" class="form-control">
+						<option value="">Todos</option>
+						<option value="j">Pessoa Jurídica</option>
+						<option value="f">Pessoa Física</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="form-group form-group-sm col-lg-12">
+			<div class="form-group form-group-sm col-lg-4">
+				<label class="col-md-3 control-label" for="cnpj">CNPJ</label>
+				<div class="col-md-6">
+					<input
+						type="text" id="cnpj" name="cnpj" 
+						class="form-control" placeholder="Digite somente números"
+						ng-model='pesquisacliente.cnpj'
+					>
+				</div>
+			</div>
+			<div class="form-group form-group-sm col-lg-4">
+				<label class="col-md-3 control-label" for="razaosocial">Razão Social</label>
+				<div class="col-md-6">
+					<input 
+						type="text" id="razaosocial" name="razaosocial" 
+						class="form-control" placeholder="Digite somente alfanuméricos"
+						ng-model='pesquisacliente.razaosocial'>
+				</div>
+			</div>
+			<div class="form-group form-group-sm col-lg-4">
+				<label class="col-md-3 control-label" for="nomefantasia">Nome Fantasia</label>
+				<div class="col-md-6">
+					<input 
+						type="text" id="nomefantasia" name="nomefantasia" 
+						class="form-control" placeholder="Digite somente alfanuméricos"
+						ng-model='pesquisacliente.nomefantasia'>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group form-group-sm col-lg-12">
+			<div class="form-group form-group-sm col-lg-4">
+				<label class="col-md-3 control-label" for="cnae">CNAE</label>
+				<div class="col-md-6">
+					<select id="cnae" name="cnae" 
+							ng-model="pesquisacliente.cnae" class="form-control"
+							ng-options="cnae._id as cnae.codigo +' - '+cnae.nome for cnae in cnaes"
+							>
+						 <option value="">Todos</option>   
+					</select>
+				</div>
+			</div>
+			<div class="form-group form-group-sm col-lg-4">
+				<label class="col-md-3 control-label" for="naturezajuridica">Natureza Jurídica</label>
+				<div class="col-md-6">
+				  <select id="naturezajuridica" name="naturezajuridica"
+						  ng-model="pesquisacliente.naturezajuridica" class="form-control"
+						  ng-options="naturezaj._id as naturezaj.codigo +' - '+naturezaj.nome for naturezaj in nj"
+						  >
+						  <option value="">Todos</option>   
+				  </select> 
+
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group form-group-sm col-lg-12">
+			<div class="form-group form-group-sm col-lg-4">
+				<label class="col-md-3 control-label" for="cidade">Cidade</label>
+				<div class="col-md-6">
+					<select id='cidade' name='cidade'
+							ng-model="pesquisacliente['endereco.cidade']" class="form-control" 
+							ng-options="cidade for cidade in cidades"
+							>
+							<option value="">Todos</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group form-group-sm col-lg-4">
+				<label class="col-md-3 control-label" for="telefone">Telefone</label>
+				<div class="col-md-6">
+					<input type="text" id="telefone" name="telefone" 
+					 class="form-control" ng-model='pesquisacliente.telefone'>
+				</div>
+			</div>
+			<div class="form-group form-group-sm col-lg-4">
+				<label class="col-md-3 control-label" for="email">Email</label>
+				<div class="col-md-6">
+					<input type="text" id="email" name="email" 
+					class="form-control" ng-model='pesquisacliente.email'>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="form-group form-group-sm col-lg-12">
+			
+		</div>
+		<div class="form-group form-actions">
+			<div class="col-md-10 text-right">
+				<a href ng-click='pesquisar()' class="btn btn-effect-ripple btn-effect-ripple btn-primary">Pesquisar</a>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<!-- Datatables is initialized in js/pages/uiTables.js -->
+<div class="block full">
+	<div class="block-title">
+		<h2>Registros Encontrados</h2>
+	</div>
+	<div class="table-responsive">
+		<table id="example-datatable" class="table table-striped table-bordered table-vcenter">
+			<thead>
+				<tr>
+					<th>CPF/CNPJ</th>
+					<th>Nome/Razão Social</th>
+					<th>CNAE/Atividade</th>
+					<th>Cidade</th>
+					<th>Telefone</th>
+					<th>E-mail</th>
+					<th>Situação</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="cliente in clientes">
+					<td>
+						<a href ui-sref="cadastros-clientes-editar({id : '{{cliente._id}}' })">
+							<span ng-if="cliente.tipopessoa=='f'">
+								{{cliente.cpf}}
+							</span>
+							<span ng-if="cliente.tipopessoa=='j'">
+								{{cliente.cnpj}}
+							</span>
+						</a>
+					</td>
+					<td>
+						<span ng-if="cliente.tipopessoa=='f'">
+							{{cliente.nome}}
+						</span>
+						<span ng-if="cliente.tipopessoa=='j'">
+							{{cliente.razaosocial}}
+						</span>	
+					</td>
+					<td>
+						<span ng-if="cliente.tipopessoa=='f'">
+							{{cliente.atividade.nome}}
+						</span>
+						<span ng-if="cliente.tipopessoa=='j'">
+							{{cliente.cnae.nome}}
+						</span>	
+					</td>
+					<td>{{cliente.endereco.cidade}}</td>
+					<td>
+						<span ng-repeat="contato in cliente.contato | limitTo:1">
+							{{contato.telefone}}
+						</span>
+						
+					</td>
+					<td>
+						<span ng-repeat="contato in cliente.contato | limitTo:1">
+							{{contato.email}}
+						</span>
+					</td>
+					<td style="background: {{cliente.status.cor}};text-align: center;">
+						{{cliente.status.nome}}
+					</td>
+					<td>
+						<a href ng-click="aprovar(cliente)" class='btn btn-effect-ripple btn-primary'>Aprovar</a>
+						<a href ng-click="justificar(cliente)" class='btn btn-effect-ripple btn-danger'>Rejeitar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- END Datatables Block -->
+
+

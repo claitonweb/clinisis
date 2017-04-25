@@ -1,0 +1,195 @@
+<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+
+<cadastro>
+
+<tabs>
+		<formulario>
+				<div class="form-group">
+				<div class="col-md-12 col-xs-12">
+					
+					<tabs ng-if="modelObj.pagamentos[0].retorno==undefined">
+		    
+				            <pane title="Vacinas">
+
+						      <div class="panel panel-default" style="border: none;margin-bottom: 0;">
+									  
+									<div>
+									  <table 
+									  	style="margin-bottom: 0;border-bottom: 0;" 
+									   class="table table-bordered table-striped table-hover">
+									     <thead>
+									     	<tr>
+									     	<th colspan="3">
+									    		 <input 
+									    		 type="text" 
+									    		 placeholder="Pesquise pelo nome" 
+									    		 class="form-control"
+									    		 ng-model="search.nome">
+
+									  	 	</th>
+									     	</tr>
+									     </thead>
+									     <tbody>
+
+									    	<tr 
+									    		style="cursor: pointer;" 
+									    		ng-repeat="(key, value) in vacinas | filter:search" 
+									    		>
+									    		<td>
+									    			{{value.nome}}
+									    		</td>
+									    		<td>
+									    			{{value.valor_venda | currency}}
+									    		</td>
+									    		<td style="width: 300px;">
+									    			<input-text field="qtdvacinapesquisa" label="Qtd" tam='6'></input-text>		
+									    			<div class="col-md-6">
+									    				<div class="btn-group" role="group" >
+																<button 
+																ng-click="adicionarvacina(value)" 
+																ng-disabled="modelObj.pagamentos[0].retorno!=undefined"
+																class="btn btn-primary">
+
+																Comprar
+																</button>
+										    			
+														</div>
+													</div>
+									    		</td>
+									    		
+									    	</tr>
+									    </tbody>
+									  </table>
+									</div>
+									  
+									  
+								</div>  
+						    </pane>
+						    <pane title="Pacotes Vacinais">
+						       <div class="panel panel-default" style="border: none;margin-bottom: 0;">
+									  <!-- Default panel contents -->
+								</div>  
+								<table style="margin-bottom: 0;border-bottom: 0;" 
+								class="table table-bordered table-striped table-hover">
+									    <thead>
+									    	<tr>
+									    		<th colspan="2">
+									    			<input 
+									    		 type="text" 
+									    		 placeholder="Pesquise pelo nome" 
+									    		 class="form-control"
+									    		 ng-model="searchpct.nome">
+									    		</th>
+									    		
+									    	</tr>
+									    </thead>
+									     <tbody>
+									    	<tr 
+									    		style="cursor: pointer;" 
+									    		ng-repeat="(key, value) in pacotes | filter : searchpct">
+									    		<td>
+									    			{{value.nome}}
+									    		</td>
+									    		<td class='text-center'>
+									    			<button 
+									    			ng-disabled="modelObj.pagamentos[0].retorno!=undefined"
+									    			ng-click="adicionarpacote(value)" class="btn btn-primary">Selecionar</button>
+									    		</td>	
+									    	</tr>
+									    </tbody>
+									  </table>
+						    
+						    </pane>
+						    
+				    </tabs>    
+				
+				
+					  	
+				</div>
+				</div>
+				<div class="form-group">
+				<div class="col-md-12 col-xs-12">
+					<uib-tabset>
+					    <uib-tab index="0" class='text-info' heading="Carrinho ( {{modelObj.vacinas.length}} )">
+					    	<div class="panel panel-default" style="border: none;margin-bottom: 0;">
+								<div>
+									<table 
+									style="margin-bottom: 0;" 
+									class="table table-bordered table-striped table-hover">
+									    <thead>
+									    	<tr>
+									    		<th colspan="3" class="text-info">
+									    			Total : {{total | currency}}
+									    		</th>
+									    	</tr>
+									    </thead>
+									    <tbody>
+									    	<tr 
+									    		style="cursor: pointer;" 
+									    		ng-repeat="(key, value) in modelObj.vacinas"
+									    		>
+									    		
+									    		<td>
+									    			<span ng-if='value.objvacina.nome'>
+									    			{{value.objvacina.nome}} / {{value.objvacina.codigo}}
+									    			</span>
+									    			<span ng-if='value.vacina.nome'>
+									    			{{value.vacina.nome}} / {{value.vacina.codigo}}
+									    			</span>
+									    		</td>
+									    		<td>
+									    			{{modelObj.vacinas[$index].valor | currency}}
+									    		</td>
+									    		<td class='text-center'>
+									    			<button 
+									    			ng-disabled="modelObj._id!=undefined"
+									    			ng-click="removerVacina($index)" class="btn btn-danger">X</button>
+									    		</td>	
+									    	</tr>
+									    </tbody>
+									</table>
+								</div>
+							</div>
+					    </uib-tab>
+					</uib-tabset>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-12 col-xs-12">
+					    <p>
+						    <a 
+						    	class="btn btn-primary btn-lg" 
+						    	ng-if="modelObj.pagamentos.length > 0"
+						    	href 
+						    	ng-click="pagar()" 
+						    	role="button"
+						    	ng-disabled="modelObj.vacinas.length <=0 || 
+						    	(
+						    	modelObj.pagamentos[0].retorno.transaction.status[0] != 1 && modelObj._id!=undefined
+						    	)"
+						    	>	
+						    	Pagar com Pagseguro
+						    </a>
+						    <a 
+						    	class="btn btn-primary btn-lg" 
+						    	ng-if="modelObj.pagamentos.length <= 0"
+						    	href 
+						    	ng-click="pagar()" 
+						    	role="button"
+						    	ng-disabled="modelObj.vacinas.length <=0"
+						    	>	
+						    	Pagar com Pagseguro
+						    </a>
+						    
+						</p>
+				    
+			    </div>
+			</div>
+			<div class="alert alert-success" ng-show="mensagem.texto">{{mensagem.texto}}</div>
+            <div class="alert alert-danger" ng-show="mensagem.erro">{{mensagem.erro}}</div>
+                                
+		</formulario>
+	
+
+	</tabs>
+</cadastro>

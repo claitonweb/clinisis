@@ -1,0 +1,43 @@
+<input-select id='colaboradorTipo' label="Tipo" options="tiposdecolaboradores"></input-select>
+<input-text field="colaboradorNome" label="Nome"></input-text>
+<input-cpf field="colaboradorCpf" label="CPF"></input-cpf>
+<input-text field="colaboradorCargo" label="Cargo"></input-text>
+<input-date field="colaboradorDtnascimento" label="Data Nascimento"></input-date>
+<input-telefone field="colaboradorTelefone" label="Telefone"></input-telefone>
+<input-email field="colaboradorEmail" label="Email"></input-email>
+
+<button type="button" ng-show="idcolaborador.length == 0" ng-hide="idcolaborador.length > 0" ng-click='adicionarColaborador()' class="btn btn-effect-ripple btn-primary">Adicionar</button>
+<button type="button" ng-show="idcolaborador.length > 0" ng-hide="idcolaborador.length == 0" ng-click='atualizarColaborador()' class="btn btn-effect-ripple btn-primary">Atualizar</button>
+<button type="button" ng-click='cancelarColaborador()' class="btn btn-effect-ripple btn-danger">Cancelar</button>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-vcenter" style="margin-top: 20px;">
+        <thead>
+            <tr>
+                <th>Tipo</th>
+                <th>Nome</th>
+                <th>Cpf</th>
+                <th>Cargo</th>
+                <th>Dt Nasc.</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="col in cliente.colaborador">
+                <td>{{col.tipo.nome}}</td>
+                <td>{{col.nome}}</td>
+                <td>{{col.cpf}}</td>
+                <td>{{col.cargo}}</td>
+                <td>{{col.dtnascimento | date : 'dd/MM/yyyy'}}</td>
+                <td>{{col.telefone}}</td>
+                <td>{{col.email}}</td>
+                <td>
+                    <button type="button" ng-click='removerColaborador($index)' class="btn btn-effect-ripple btn-danger">Remover</button>
+                    <button type="button" ng-click='editarColaborador($index)' class="btn btn-effect-ripple btn-primary">Editar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

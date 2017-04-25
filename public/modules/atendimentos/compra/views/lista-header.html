@@ -1,0 +1,64 @@
+<div class="content-header">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="header-section">
+				<h1>Consulta de {{config.resource.desc}}</h1>
+			</div>
+		</div>
+		<div class="col-sm-6 hidden-xs">
+			<div class="header-section">
+				<ul class="breadcrumb breadcrumb-top">
+					<li><a href ui-sref="/">Início</a></li>
+					<li>{{config.module.desc}}</li>
+					<li>{{config.resource.desc}}</li>
+
+					<li ng-if='states.lista.fullName'><a href ui-sref="{{states.lista.fullName}}">Consulta</a></li>
+					<li ng-if='!states.lista.fullName'>Consulta</li>
+				</ul>
+			</div>
+		</div>
+		<div class="header-section">
+			<div class="form-horizontal">
+				<div class="form-group col-lg-12"></div>
+				<div class="form-group col-lg-9">
+					<div class="col-md-4" ng-hide="usuariologado[0].estrategia == 'localCliente'">
+						<input type="text" ng-model='searchParams.nome' class="form-control" placeholder="Pesquise pelo Nome do cliente"
+						my-enter="lista(searchParams)">
+					</div>
+					<div class="col-md-3">
+						<input type="text" ng-model='searchParams.codigo' class="form-control" placeholder="Pesquise pelo Código da Compra"
+						my-enter="lista(searchParams)">
+					</div>
+
+					<div class="col-md-3">
+						<select ng-model="searchParams.status" class="form-control">
+							<option value="1">Aguardando Pagamento</option>
+							<option value="3">Paga</option>
+						</select>
+					</div>	
+
+					<a href ng-click="lista(searchParams)" class="btn btn-effect-ripple btn-effect-ripple btn-primary">
+						<span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;Pesquisar
+					</a>
+				</div>
+				<div class="form-group col-lg-3">
+					<div class="text-right">
+						
+						<a ng-hide="usuariologado[0].estrategia != localCliente" href ui-sref="{{states.cadastro.fullName}}" class="btn btn-effect-ripple btn-effect-ripple btn-primary">
+							<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Novo
+						</a>
+
+						<a ng-hide="usuariologado[0].estrategia == localCliente" href ui-sref="atendimento-compracliente-cadastro" 
+							class="btn btn-effect-ripple btn-effect-ripple btn-primary">
+							<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Novo
+						</a>
+
+
+							
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

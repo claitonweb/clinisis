@@ -1,0 +1,29 @@
+<div ng-controller="FinanceiroLancamentoRecebimentoCtrl">
+	<div ng-include="'core/common/views/cadastro-header.html'" scope="" onload=""></div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<tabs>
+				<pane title="Dados Gerais">
+					<form id="form-validation" novalidate name='formObj' method="post">
+						<div class="block">
+							<div class="form-horizontal">
+								<input-text field="nome" label="Nome"></input-text>
+								<input-select field="contaareceber" label="Conta A Receber" options="contasareceber" ngchange="selecionaconta()"></input-select>
+								<input-select field="centrodecusto" label="Centro de Custo" options="centrosdecusto"></input-select>
+								<input-select field="domiciliobancario" label="Domicílio Bancário" options="domicilios"></input-select>
+								<input-select field="cliente" label="Cliente" options="clientes"></input-select>
+								<input-money field="valor" label="Valor" ng-blur="copiavalororiginal()"></input-money>
+								<input-date field="data_vencimento" label="Data Vencimento"></input-date>
+								<input-date field="data_pagamento" label="Data Pagamento"></input-date>
+								<input-textarea field="descricao" label="Descrição"></input-textarea>
+
+								<div ng-include="'core/common/views/cadastro-actions.html'"></div>
+							</div>
+						</div>
+					</form>
+				</pane>
+			</tabs>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,91 @@
+<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+
+<cadastro>
+
+<tabs>
+		<formulario>
+				<div class="form-group">
+					<div class="col-md-12 col-xs-12">
+						<pane title="{{modelObj.nome}}">
+							
+
+							<table class="table table-bordered table-striped table-hover">
+								<tr>
+									<thead>
+										<th>
+											Código
+										</th>
+										<th>
+											Vacina
+										</th>
+										<th>
+											Valor
+										</th>
+									</thead>
+								</tr>
+								<tr>
+									<td>
+										{{modelObj.codcupom}}/{{modelObj.codigo_cupom}}
+									</td>
+									<td>
+										{{modelObj.vacina.nome}}		
+									</td>
+									<td>
+										{{modelObj.valor_vacina | currency}}		
+									</td>
+								</tr>
+							</table>
+							<div class="col-md-6 col-xs-12 pull-right">
+								<div class="form-group" ng-hide="!libera">
+									<div class="row">
+										<input-select field="qtdvacinapesquisa" label="Quantidade" options="optionsqtd" tam="6"
+										ngchange="calculavalor()"></input-select>
+										
+										<input-money ngreadonly="true" field="valorpgto" label="Total"tam="6"></input-money>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<button 
+									ng-disabled="!libera"
+									ng-click="pagar()" class="btn btn-primary btn-block">Pagar</button>
+								</div>
+								
+							</div>
+							<div class="alert alert-danger col-md-6" ng-if="mensagemcliente=''" role="alert">
+								<div class="form-group">
+									{{mensagemcliente}}
+								</div>
+							</div>
+						</pane>
+					</div>
+
+
+					<div class="col-md-6 col-xs-12 pull-right">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											Suas compras deste cupom
+										</div>
+										<ul class="list-group">
+										  <li class="list-group-item">
+										    <span class="badge">{{qtdjavendidas}}</span>
+										    Você já comprou
+										  </li>
+										  <li class="list-group-item">
+										    <span class="badge">{{optionsqtd.length}}</span>
+										    Você ainda pode comprar
+										  </li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+				
+
+		</formulario>
+
+		
+
+</tabs>
+
+</cadastro>							

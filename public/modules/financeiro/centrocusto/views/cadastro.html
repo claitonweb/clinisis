@@ -1,0 +1,22 @@
+<div ng-controller="FinanceiroCentroCustoCtrl">
+	<div ng-include="'core/common/views/cadastro-header.html'" scope="" onload=""></div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<tabs>
+				<pane title="Dados Gerais">
+					<form id="form-validation" novalidate name='formObj' method="post">
+						<div class="block">
+							<div class="form-horizontal">
+								<input-text field="nome" label="Nome"></input-text>
+								<input-text field="codigo" label="Código"></input-text>
+
+								<div ng-include="'core/common/views/cadastro-actions.html'"></div>
+							</div>
+						</div>
+					</form>
+				</pane>
+			</tabs>
+		</div>
+	</div>
+</div>

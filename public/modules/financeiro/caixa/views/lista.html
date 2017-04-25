@@ -1,0 +1,64 @@
+<div ng-include="'modules/financeiro/caixa/views/lista-header.html'"></div>
+
+<div class="block full">
+	<div class="block-title">
+		<h2>Pagamentos de Compras</h2>
+	</div>
+
+		<table id="example-datatable" class="table">
+			<thead>
+				<tr>
+					<th>Forma</th>
+					<th>
+						<div class="text-right">
+						Valor
+						</div>
+					</th>
+					<th><div class="text-right">Data</div></th>
+					<th><div class="text-right">Compra</div></th>
+					<th><div class="text-right">Cliente</div></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="obj in compras | orderBy: 'data_pagamento' track by $index">
+					<td>
+						{{obj.formapagamento.nome}} 		
+					</td>
+					<td>
+						<div class="text-right">
+							{{obj.valor | currency}}
+						</div> 		
+					</td>
+					<td>
+						<div class="text-right">
+							{{obj.data_pagamento | date : 'dd/MM/yyyy'}}
+						</div>	
+					</td>
+					<td>
+						<div class="text-right">
+							{{obj.compra.codigo}}
+						</div>
+					</td>
+					<td>
+						<div class="text-right">
+							{{obj.compra.cliente.nome}}
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="2">
+						Total
+					</th>
+					<th colspan="3">
+						<div class="text-right">
+							{{total | currency}}
+						</div>
+					</th>
+				</tr>
+			</tfoot>
+		</table>
+		
+	
+</div>

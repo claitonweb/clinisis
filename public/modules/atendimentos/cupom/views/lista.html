@@ -1,0 +1,71 @@
+
+<div ng-include="'core/common/views/lista-header.html'"></div>
+
+<div class="block full">
+	<div class="block-title">
+		<h2>Registros Encontrados</h2>
+	</div>
+	<div class="table-responsive">
+		
+		<table id="example-datatable" class="table table-striped table-bordered table-vcenter">
+			<thead>
+				<tr>
+					<th>Código</th>
+					<th>Nome</th>
+					<th>Vacina</th>
+					<th>Valor</th>
+					<th>Qtd</th>	
+					<th>Qtd Pessoa</th>
+					<th>Dt. Validade</th>
+					<th width="200">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr 
+					ng-repeat="obj in searchReturn">
+					<td>
+						<span>
+							{{obj.codcupom}}/{{obj.codigo_cupom}}
+						</span>		
+					</td>
+					<td>
+						<span>
+							{{obj.nome}}
+						</span>
+					</td>
+					<td>
+						<span>
+							{{obj.vacina.nome}}
+						</span>		
+					</td>
+					<td>
+						<span>
+							{{obj.valor_vacina | currency}}
+						</span>		
+					</td>
+					<td>
+						<span>
+							{{obj.quantidade}}
+						</span>		
+					</td>
+					<td>
+						<span>
+							{{obj.quantidade_usuario}}
+						</span>		
+					</td>
+					<td>
+						<span>
+							{{obj.data_validade | date : 'dd/MM/yyyy'}}
+						</span>		
+					</td>
+					<td>
+						<a ui-sref="{{states.cadastro.fullName}}({id : '{{obj._id}}' })" class="btn btn-primary btn-sm" title="Visualizar">
+							<!--span class="glyphicon glyphicon-eye-open"></span-->
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>		
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

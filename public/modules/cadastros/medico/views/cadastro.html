@@ -1,0 +1,53 @@
+<cadastro ctrl="CadastrosMedicoCtrl">
+    <tabs>
+        <pane title="Dados Gerais">
+            <formulario>
+				<grupo label="Identificação">
+					<div class="row">
+						<input-check field="ativo" label="Ativo" value="1"></input-check>
+					</div>
+					<div class="row">
+						<input-cpf field="cpfcnpj" required label="CPF"></input-cpf>
+						
+						<input-text field="nome"  required label="Nome Completo"></input-text>
+					</div>
+					<div class="row">
+						<input-date field="dtnascimento"  label="Data Nascimento"></input-date>
+					</div>
+				</grupo>
+
+				<grupo label="Dados Médicos">
+					<div class="row">
+						<input-select field="especialidade" required label="Especialidade" options="especialidades"></input-select>
+						<input-text field="crm" required label="CRM"></input-text>
+					</div>
+				</grupo>
+
+				<grupo label="Contatos">
+					<div class="row">
+						<input-telefone field="telefone" label="Telefone"></input-telefone>
+						<input-email field="email" label="Email"></input-email>
+					</div>
+					<div class="row">
+						<input-text field="responsavel" label="Responsável 1"></input-text>
+					</div>
+				</grupo>
+
+				<grupo label="Dados Adicionais">
+					<input-textarea field="observacoes" label="Observações"></input-textarea>
+				</grupo>
+            </formulario>
+        </pane>
+        <pane title="Atendimentos">
+			<div class="block">
+				<div class="form-horizontal">
+					<grupo label="Atendimentos Realizados">
+						<div class="alert alert-info">
+							Não há atendimentos para exibir.
+						</div>
+					</grupo>
+				</div>
+			</div>
+        </pane>
+    </tabs>
+</cadastro>

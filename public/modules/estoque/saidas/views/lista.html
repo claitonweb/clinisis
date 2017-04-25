@@ -1,0 +1,61 @@
+<div ng-include="'modules/estoque/saidas/views/lista-header.html'"></div>
+
+<div class="block full">
+	<div class="block-title">
+		<h2>Registros Encontrados</h2>
+	</div>
+	<div class="table-responsive">
+		<table id="example-datatable" class="table table-striped table-bordered table-vcenter">
+			<thead>
+				<tr>
+					<th>Vacina</th>
+					<th>Lote</th>
+					<th>Data</th>
+					<th>Compra</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="obj in saidas | orderBy: ['-data_lancamento','status','lancamento.vacina.nome']">
+					<td>
+						<span>
+							{{obj.lancamento.vacina.nome}} /
+							{{obj.lancamento.vacina.codigo}}
+						</span>		
+					</td>
+					<td>
+						<span>
+							{{obj.lancamento.lote}}
+						</span>		
+					</td>
+					<td>
+						<span>
+							{{obj.data_lancamento | date : 'dd/MM/yyyy H:mm'}}
+						</span>
+					</td>
+					<td>
+						<span>
+							{{obj.compra.codigo}}
+						</span>		
+					</td>
+					<td>
+						<span ng-if="obj.status == 'B'">
+							Baixa
+						</span>	
+						<span ng-if="obj.status == 'RP'">
+							Reserva/Paga
+						</span>	
+						<span ng-if="obj.status == 'RNP'">
+							Reserva/Não Paga
+						</span>		
+						<span ng-if="obj.status == 'RPA'">
+							Reserva Paga Agendada
+						</span>
+
+						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

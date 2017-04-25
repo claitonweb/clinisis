@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+    <title>App - CliniSis</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="pixelcave">
+    <meta name="robots" content="noindex, nofollow">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+
+    <% include layout-css.ejs %>
+
+    <!-- Modernizr (browser feature detection library) -->
+    <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body ng-app="clinisis" ng-controller="mainCtrl">
+    <!-- Page Wrapper -->
+    <div id="page-wrapper" class="page-loading">
+        <!-- Preloader -->
+        <!-- Preloader functionality (initialized in js/app.js) - pageLoading() -->
+        <div class="preloader">
+            <div class="inner">
+                <!-- Animation spinner for all modern browsers -->
+                <div class="preloader-spinner themed-background hidden-lt-ie10"></div>
+                <h4 class="text-primary"><strong>Carregando...</strong></h4>
+            </div>
+        </div>
+        <!-- END Preloader -->
+
+        <!-- Page Container -->
+        <div id="page-container" class="header-fixed-top sidebar-visible-lg-full sidebar-light">
+            <!-- Main Sidebar -->
+            <div id="sidebar">
+                <!-- Sidebar Brand -->
+                <div id="sidebar-brand" class="themed-background">
+                    <a href="/" class="sidebar-title">
+                    	<i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide">CliniSis</span>
+                    </a>
+                </div>
+                <!-- END Sidebar Brand -->
+
+
+                <!-- Wrapper for scrolling functionality -->
+                <div id="sidebar-scroll">
+                    <!-- Sidebar Content -->
+                    <div class="sidebar-content">
+                        <% if(usuario == undefined){ %>
+                        <ul class="sidebar-nav">
+                            <li>
+                                <a href ui-sref="auth-login-adm">
+                                    <i class="fa fa-home sidebar-nav-icon"></i>
+                                    <span class="sidebar-nav-mini-hide">Login</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href ui-sref="auth-login-recuperarsenha">
+                                    <i class="fa fa-home sidebar-nav-icon"></i>
+                                    <span class="sidebar-nav-mini-hide">Recuperação de Senha</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <% } else { %>
+                        <div ng-include="'core/common/views/sidemenu.html'"></div>
+                        <% } %>
+                    </div>
+                    <!-- END Sidebar Content -->
+                </div>
+                <!-- END Wrapper for scrolling functionality -->
+
+                <!-- Sidebar Extra Info -->
+                <div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide" style="background: #FFFFFF">
+                    <div class="text-center">
+                        <small><a href="http://www.clinicadevacinasmdc.com.br/" target="_blank" title="Acesse o Site da Clínica">
+							<img src="img/logo.png" style="width: 100%;" /></a></small><br>
+                        <small>Sistema Criado por <a href="http://www.ondaweb.com.br" target="_blank">Ondaweb</a></small>
+                    </div>
+                </div>
+                <!-- END Sidebar Extra Info -->
+            </div>
+            <!-- END Main Sidebar -->
+
+            <!-- Main Container -->
+            <div id="main-container" >
+
+                <!-- Header -->
+                <header class="navbar navbar-inverse navbar-fixed-top">
+                    <!-- Left Header Navigation -->
+                    <ul class="nav navbar-nav-custom">
+                        <!-- Main Sidebar Toggle Button -->
+                        <li>
+                            <a href onclick="App.sidebar('toggle-sidebar');this.blur();">
+                                <i class="fa fa-ellipsis-v fa-fw animation-fadeInRight" id="sidebar-toggle-mini"></i>
+                                <i class="fa fa-bars fa-fw animation-fadeInRight" id="sidebar-toggle-full"></i>
+                            </a>
+                        </li>
+                        <!-- END Main Sidebar Toggle Button -->
+
+                        <!-- Header Link -->
+                        <li class="hidden-xs animation-fadeInQuick">
+                            <a><strong>Bem-vindo, <%=(usuario ? usuario.nome : 'Visitante')%>.</strong></a>
+                        </li>
+                        <!-- END Header Link -->
+                    </ul>
+                    <!-- END Left Header Navigation -->
+
+                    <ul class="nav navbar-nav-custom pull-right">
+                        <% if(usuario == undefined){ %>
+                        <!--li class="hidden-xs animation-fadeInQuick">
+                            <a href ui-sref="auth-login-adm">Acessar Login Administrativo</a>
+                        </li-->
+
+                        <% } else { %>
+                        <li class="dropdown" uib-dropdown>
+                            <a href class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown">
+                                <img src="img/placeholders/avatars/avatar9.jpg" alt="avatar">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="dropdown-header">
+                                    <strong>Usuário</strong>
+                                </li>
+                                <li>
+                                    <!--a href ui-sref="cadastros-cliente-editarperfil({usuario._id : '<%=usuario._id%>' })">
+                                    <i class="fa fa-pencil-square fa-fw pull-right"></i>
+                                    Editar Perfil
+                                    </a-->
+                                </li>
+                                <li>
+                                    <a href="/sair">
+                                        <i class="fa fa-power-off fa-fw pull-right"></i>
+                                        Sair
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <% } %>
+                    </ul>
+                </header>
+                <!-- END Header -->
+
+                <!-- Page content -->
+                <div id="page-content">
+                    <% if(is404) { %>
+                    <div class="content-header">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="header-section">
+                                    <h1>404</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="jumbotron">
+                        <h1>Página não encontrada!</h1>
+                        <h2>Esta página não existe ou você não permissão para acessá-la.</h2>
+                        <h3><a href="/">Clique aqui para ir para a página principal</a></h3>
+                    </div>
+
+                    <% } else { %>
+                    <div ui-view></div>
+                    <% } %>
+
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <%if (msg.length > 0) { %> <div class="alert alert-<%msg.type%>"><%=msg.texto%></div> <% } %>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Page Content -->
+            </div>
+            <!-- END Main Container -->
+        </div>
+        <!-- END Page Container -->
+    </div>
+    <!-- END Page Wrapper -->
+
+    <% include layout-js-libs.ejs %>
+    <% include layout-js-resources.ejs %>
+</body>
+</html>

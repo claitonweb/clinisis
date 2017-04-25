@@ -1,0 +1,36 @@
+<cadastro ctrl="EstoqueLancamentoCtrl">
+	<tabs>
+		<pane title="Dados Gerais">
+			<formulario>
+				<div class="row">
+					<input-select 
+						field="vacina" required label="Vacina" options="vacinas">
+					</input-select>
+					
+				</div>
+				<div class="row">
+					<input-hidden field="usuario"></input-hidden>
+					<input-date field="data_lancamento" label="Data de Lançamento"></input-date>
+				</div>
+				
+				<div class="row">
+					<input-text field="quantidade" required label="Quantidade"></input-text>
+					<input-text field="quantidade_reserva" label="Quantidade Reserva"></input-text>
+				</div>
+				<div class="row">
+					<input-money field="valor_compra" required label="Valor de Compra"></input-money>
+					<input-select 
+						field="fornecedor" required label="Fornecedor" options="fornecedores">
+					</input-select>
+				</div>
+				<div class="row">
+					<input-text field="lote" required label="Lote"></input-text>
+					<input-date field="data_compra" label="Data da Compra"></input-date>
+				</div>
+				<div class="row">
+					<input-date field="data_validade" label="Validade"></input-date>
+				</div>	
+			</formulario>
+		</pane>
+	</tabs>
+</cadastro>

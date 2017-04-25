@@ -1,0 +1,82 @@
+<div class="content-header">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="header-section">
+				<h1>Consulta de {{config.resource.desc}}</h1>
+			</div>
+		</div>
+		<div class="col-sm-6 hidden-xs">
+			<div class="header-section">
+				<ul class="breadcrumb breadcrumb-top">
+					<li><a href ui-sref="/">Início</a></li>
+					<li>{{config.module.desc}}</li>
+					<li>{{config.resource.desc}}</li>
+					<li><a href ui-sref="{{states.lista.fullName}}">Consulta</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="header-section">
+			<div class="form-horizontal">
+				
+				<div class="form-group col-lg-12">
+					
+					<div class="col-md-2">
+						<p class="input-group">
+							<input 
+								type="text" 
+								name="dataselecionada" 
+								class="form-control"
+								ng-model="searchParams.datainicio"	
+								uib-datepicker-popup="d!/MM/yyyy"
+								is-open="popup1.opened" 
+								datepicker-options="dateOptions"	
+								alt-input-formats="altInputFormats"
+								placeholder="Data Início" 
+							>
+							<span class="input-group-addon">
+				            	<a href ng-click="popup1.opened = true">
+				            		<i class="glyphicon glyphicon-calendar"></i>
+				            	</a>
+				          	</span>
+				        </p>  
+					</div>
+					<div class="col-md-2">
+						<p class="input-group">
+							<input 
+								type="text" 
+								name="dataselecionada" 
+								class="form-control"
+								ng-model="searchParams.datafim"	
+								uib-datepicker-popup="d!/MM/yyyy"
+								is-open="popup2.opened" 
+								datepicker-options="dateOptions"	
+								alt-input-formats="altInputFormats"
+								placeholder="Data Fim"
+							>
+							<span class="input-group-addon">
+				            	<a href ng-click="popup2.opened = true">
+				            		<i class="glyphicon glyphicon-calendar"></i>
+				            	</a>
+				          	</span>
+				        </p>
+				    </div>
+					<div class="col-md-3">
+						<a href ng-click="lista(searchParams)" class="btn btn-effect-ripple btn-effect-ripple btn-primary">
+							<span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;Pesquisar
+						</a>
+					</div>
+
+					
+					<div class="form-group col-lg-12">
+						<div class="text-right">
+							<a href ui-sref="{{states.cadastro.fullName}}" class="btn btn-effect-ripple btn-effect-ripple btn-primary">
+								<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Novo
+							</a>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>

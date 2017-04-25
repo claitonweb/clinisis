@@ -1,0 +1,91 @@
+<cadastro ctrl="AtendimentosVisualizarCtrl">
+	<tabs>
+		<pane title="Dados Gerais">
+			<div class='block'>
+				<div class='form-horizontal'>
+			 <div class="form-group">
+			    <label class="col-sm-1 control-label">Cliente</label>
+			    <div class="col-sm-2">
+			      <p class="form-control-static">{{modelObj.cliente.nome}}</p>
+			    </div>
+			    
+			    <label class="col-sm-1 control-label">Médico</label>
+			    <div class="col-sm-2">
+			      <p class="form-control-static">{{modelObj.medico.nome}}</p>
+			    </div>
+			    
+			    <label class="col-sm-1 control-label">Atend.</label>
+			    <div class="col-sm-2">
+			      <p class="form-control-static">{{modelObj.usuario.nome}}</p>
+			    </div>
+			    
+			    <label class="col-sm-1 control-label">Dt. Atend.</label>
+			    <div class="col-sm-2">
+			      <p class="form-control-static">{{modelObj.data_atendimento | date : "dd/MM/yyyy"}}</p>
+			    </div>
+			    
+			    
+			  </div>
+			  
+					
+			<div class='panel panel-info'>
+				<div class='panel-heading'>
+					Vacinas
+				</div>
+				<table class='table'>
+					<tr>
+						<th>
+							Nome
+						</th>
+						<th>
+							Valor
+						</th>
+					</tr>
+					<tr ng-repeat="(key, value) in modelObj.vacinas">
+						<td>
+							{{value.vacina.nome}}
+						</td>
+						<td>
+							{{value.valor | currency}}
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class='panel panel-info'>
+				<div class='panel-heading'>
+					Pagamentos
+				</div>
+				<table class='table'>
+					<tr>
+						<th>
+							Nome
+						</th>
+						<th>
+							Valor
+						</th>
+						<th>
+							Vencimento
+						</th>
+					</tr>
+					<tr ng-repeat="(key, value) in modelObj.pagamentos">
+						<td>
+							{{value.formapagamento.nome}}
+						</td>
+						<td>
+							{{value.valor | currency}}
+						</td>
+						<td>
+							{{value.data_pagamento | date : "dd/MM/yyyy"}}
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>			
+					</div>
+				
+				
+		</pane>
+	</tabs>
+
+</cadastro>

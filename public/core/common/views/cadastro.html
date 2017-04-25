@@ -1,0 +1,13 @@
+<div ng-controller="CursosAreaInteresseCtrl">
+	<div ng-include="'core/common/views/cadastro-header.html'" scope="" onload=""></div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<tabs>
+				<pane title="Cadastro">
+				  <div ng-include="'views/{{nomeModulo}}/{{nomeRecurso}}/novo.html'" scope="" onload=""></div>
+				</pane>
+			</tabs>
+		</div>
+	</div>
+</div>

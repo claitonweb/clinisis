@@ -1,0 +1,129 @@
+<!-- Search Results Header -->
+<div class="content-header">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="header-section">
+				<h1>Previsão de Recebimentos</h1>
+			</div>
+		</div>
+		<div class="col-sm-6 hidden-xs">
+			<div class="header-section">
+				<ul class="breadcrumb breadcrumb-top">
+					<li>Início</li>
+					<li>Financeiro</li>
+					<li>Contas a Receber</li>
+					<li>Previsão</li>
+				</ul>
+			</div>
+		</div>
+		<div class="header-section">
+			<div class="form-horizontal">
+				<div class="form-group col-lg-12"></div>
+				<div class="form-group col-lg-9">
+					<label class="col-md-1 control-label" for="periodo">
+						Mês
+					</label>
+								
+					<div class="col-md-3">
+						<select class="form-control" 
+							id='periodo'  
+							ng-model='pesquisa.mes' 
+							ng-options="k as v for (k,v) in meses">
+						</select>
+						
+					</div>
+					<a href ng-click="lista()" class="btn btn-effect-ripple btn-effect-ripple btn-primary">Pesquisar</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Datatables is initialized in js/pages/uiTables.js -->
+<div class="block full">
+	<div class="block-title">
+		<h2>Contas Recebidas</h2>
+	</div>
+	<div class="table-responsive">
+		<table id="example-datatable" class="table table-striped table-bordered table-vcenter">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Valor</th>
+					<th>Data Pgto.</th>
+				</tr>
+			</thead>
+			<tbody ng-init="totalrecebido = 0">
+				<tr ng-repeat="obj in objetolista.contaslancadas">
+					<td>
+						{{obj.contaareceber.nome}}
+					</td>
+					<td ng-init="$parent.totalrecebido = $parent.totalrecebido + obj.valor">
+						{{obj.valor | currency}}
+					</td>
+					<td>
+						{{obj.data_pagamento | date : 'dd/MM/yyyy'}}
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3">
+						Total : {{totalrecebido | currency}}
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+<div class="block full">
+
+<div class="block-title">
+		<h2>Próximas Contas</h2>
+	</div>
+	<div class="table-responsive">
+
+		<table id="example-datatable" class="table table-striped table-bordered table-vcenter">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Valor</th>
+					<th>Data</th>
+				</tr>
+			</thead>
+			<tbody ng-init="total = 0">
+				<tr ng-repeat="(obj,valor) in objetolista.contasprevistas">
+					<td>
+						<span ng-repeat="(idconta,conta) in objetolista.contas">
+							<span ng-if="idconta == obj">
+								{{conta.objeto.nome}}
+							</span>
+						</span>
+					</td>
+					<td ng-init="$parent.total = $parent.total + valor">
+						{{valor | currency}}
+					</td>
+						<td>
+						<span ng-repeat="(idconta,conta) in objetolista.contas">
+							<span ng-if="idconta == obj">
+								{{conta.objeto.data_vencimento | date:'dd/MM/yyyy'}}
+							</span>
+						</span>
+					</td>
+				</tr>
+				
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3">
+						Total : {{total | currency}}
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+<!-- END Datatables Block -->
+
+

@@ -1,0 +1,52 @@
+<cadastro ctrl="CadastrosFornecedorCtrl">
+    <tabs>
+        <pane title="Dados Gerais">
+            <formulario>
+				<grupo label="Identificação">
+					<div class="row">
+						
+						<input-check field="ativo" label="Ativo" value="1"></input-check>
+						
+					</div>
+				</grupo>
+
+				<grupo label="Dados Básicos">
+					<div class="row">
+						<input-cnpj field="cnpj" label="CNPJ"></input-cnpj>
+						<input-text field="razaosocial" label="Razão Social"></input-text>
+					</div>
+					<div class="row">
+						<input-text field="nome" label="Nome Fantasia"></input-text>
+					</div>
+				</grupo>
+
+				<!--grupo-endereco field="endereco" label="Endereço" model="modelObj.endereco[0]"></grupo-endereco-->
+
+				<grupo label="Contatos">
+					<div class="row">
+						<input-telefone field="telefone" label="Telefone"></input-telefone>
+						<input-email field="email" label="Email"></input-email>
+					</div>
+					<div class="row">
+						<input-text field="responsavel" label="Pessoa para Contato"></input-text>
+					</div>
+				</grupo>
+
+				<grupo label="Dados Adicionais">
+					<input-textarea field="observacoes" label="Observações"></input-textarea>
+				</grupo>
+            </formulario>
+        </pane>
+        <pane title="Pedidos">
+			<div class="block">
+				<div class="form-horizontal">
+					<grupo label="Pedidos Realizados">
+						<div class="alert alert-info">
+							Não há pedidos para exibir.
+						</div>
+					</grupo>
+				</div>
+			</div>
+        </pane>
+    </tabs>
+</cadastro>

@@ -1,0 +1,103 @@
+<cadastro ctrl="CadastrosClienteCtrl">
+    <tabs>
+    	<pane title="Dados Gerais">
+            <formulario>
+            	<grupo label="Identificação">
+					<div class="form-group">
+						<div class="row">
+							<input-email field="login" label="Login" required></input-email>
+							<input-password field="password" label="Senha" required></input-password>
+							<input-hidden field="oldpassword"></input-hidden>
+							<input-hidden field="ativo" ngvalue="1"></input-hidden>
+						</div>
+					</div>
+				</grupo>
+
+				<grupo label="Dados Básicos">
+					<div class="form-group">
+						<div class="row">
+							<input-select field="tipopessoa" label="Tipo Pessoa" options="">
+							    <option value="j">Pessoa Jurídica</option>
+							    <option value="f">Pessoa Física</option>
+							</input-select>
+							
+							<div ng-if="modelObj.tipopessoa=='f'">
+								<input-text field="nome" label="Nome Completo" required></input-text>
+							</div>
+							<div ng-if="modelObj.tipopessoa=='j'">
+								<input-text field="nome" label="Razão Social" required></input-text>
+							</div>
+
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row" ng-if="modelObj.tipopessoa=='f'">
+							<input-cpf field="cpfcnpj" label="CPF"></input-cpf>
+							<input-date field="dtnascimento" label="Data Nascimento"></input-date>
+						</div>
+						<div class="row" ng-if="modelObj.tipopessoa=='j'">
+							<input-cnpj field="cpfcnpj" label="CNPJ"></input-cnpj>
+						</div>
+					</div>
+				</grupo>
+
+				<grupo label="Dependentes">
+					<div class="form-group">
+						<div class="row">
+							<input-text field="dependente.nome" label="Nome Completo" 
+							tam="5"></input-text>
+							
+							<input-date tam="5" field="dependente.dtnascimento" 
+							label="Data Nascimento"></input-date>
+							
+							<a href class="btn btn-primary" ng-click="adicionarDependente()">Adicionar</a>
+							
+						</div>
+
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-12">	
+
+							<table class="table table-striped table-bordered table-vcenter">
+								<tr>
+									<th>
+										Nome
+									</th>
+									<th>
+										Dt. Nascimento
+									</th>
+								</tr>
+								<tr ng-repeat="obj in dependentes">
+									<td>
+										{{obj.nome}}
+									</td>
+									<td>
+										{{obj.dtnascimento | date:'dd/MM/yyyy'}}
+									</td>
+								</tr>
+							</table>
+							</div>
+						</div>
+					</div>
+				</grupo>		
+
+				<grupo-endereco field="endereco" label="Endereço" model="modelObj.endereco[0]"></grupo-endereco>
+
+				<grupo label="Contatos">
+					<div class="form-group">
+						<div class="row">
+							<input-telefone field="telefone" label="Telefone"></input-telefone>
+							<input-email field="email" label="Email"></input-email>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<input-text field="responsavel1" label="Responsável 1"></input-text>
+						</div>
+					</div>
+				</grupo>
+            </formulario>
+        </pane>
+    </tabs>
+</cadastro>

@@ -1,0 +1,148 @@
+<div ng-include="'modules/atendimentos/compra/views/lista-header.html'"></div>
+<div class="block full">
+	<div class="block-title">
+		<h2>Registros Encontrados</h2>
+	</div>
+	<div class="table-responsive" infinite-scroll='load()'>
+			<br>
+			<div class="col-md-3">
+				<div class="panel panel-primary">
+					<ul class="list-group">
+					  <li class="list-group-item list-group-item-success">
+					  	Compras que já possuem atendimentos
+					  </li>
+					  <li class="list-group-item">
+					  	Compras sem atendimentos
+					  </li>
+					</ul>
+				</div>
+			</div>
+		<div class="col-md-12">
+		Exibindo {{maximo}} de  {{compras.length}}
+		</div>
+		<table id="example-datatable" class="table table-striped table-bordered table-vcenter">
+			<thead>
+				<tr>
+					<th>Compra</th>
+					<th>Data</th>
+					<th>Cliente</th>
+					<th>Vacina</th>
+					<th>Status</th>
+					<th width="250">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr 
+					ng-repeat="obj in compras | orderBy: ['-jatem','-compra.codigo'] | limitTo : maximo track by $index" 
+					ng-if="obj.compra!=undefined"
+					ng-class="{'text-success' : obj.jatem == true}">
+					<td>
+
+						<span>
+							{{obj.compra.codigo}}
+						</span>		
+					</td>
+					<td>
+						<span>
+							{{obj.compra.data_atendimento | date : 'dd/MM/yyyy H:mm'}}
+						</span>
+					</td>
+					<td>
+						<span>
+							{{obj.compra.cliente.nome}}
+						</span>		
+					</td>
+					<td>
+						<span>
+							{{obj.lancamento.vacina.nome}}
+						</span>		
+					</td>
+					<td>
+						<div ng-if="obj.compra.pagamentos.length > 0 && obj.compra.pagamentos[0].pagseguro!=undefined">
+							
+							<span 
+							ng-if='obj.compra.pagamentos[0].retorno.transaction.status[0] == 1'>
+								Aguardando Pagamento	
+							</span>
+							<span 
+							ng-if='obj.compra.pagamentos[0].retorno.transaction.status[0] == 2'>
+								Em Análise	
+							</span>
+							<span 
+							ng-if='obj.compra.pagamentos[0].retorno.transaction.status[0] == 3'>
+								Paga
+							</span>
+							<span 
+							ng-if='obj.compra.pagamentos[0].retorno.transaction.status[0] == 4'>
+								Disponível
+							</span>
+							<span 
+							ng-if='obj.compra.pagamentos[0].retorno.transaction.status[0] == 5'>
+								Em Disputa
+							</span>
+							<span 
+							ng-if='obj.compra.pagamentos[0].retorno.transaction.status[0] == 6'>
+								Devolvida
+							</span>
+							<span 
+							ng-if='obj.compra.pagamentos[0].retorno.transaction.status[0] == 7'>
+								Cancelada
+							</span>
+						
+						</div>
+						<div ng-if="obj.compra.pagamentos.length > 0 && obj.compra.pagamentos[0].pagseguro==undefined">
+							Paga
+						</div>
+						<div ng-if="obj.compra.pagamentos.length <= 0">
+							Aguardando Pagamento
+						</div>
+					</td>
+					<td>
+						<div class="btn-group" uib-dropdown is-open="status.isopen">
+					     <a  
+								ng-disabled="obj.jatem == true"
+								ui-sref="atendimentos-compra-atendimento({id : '{{obj._id}}' })" 
+								class="btn btn-primary" title="Gerar Atendimento">
+								<!--span class="glyphicon glyphicon-eye-open"></span-->
+								<span class="glyphicon glyphicon-list-alt">
+									
+								</span>
+								<span ng-if="obj.jatem !=true">
+									Atendimento	
+								</span>
+								<span ng-if="obj.jatem ==true">
+									Em Atendimento	
+								</span>
+								
+							</a>
+					      <button id="single-button" type="button" class="btn btn-danger" uib-dropdown-toggle ng-disabled="disabled">
+					        Ações <span class="caret"></span>
+					      </button>
+					      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+					        <li role="menuitem">
+					        	<a  ng-click="excluircompra(obj.compra)">
+									<span class="glyphicon glyphicon-remove"></span>
+									Excluir
+								</a>
+							</li>
+					        <li role="menuitem">
+					        	<a 
+									ui-sref="atendimentos-compra-cadastro({id : '{{obj.compra._id}}' })" 
+									 title="Editar">
+									<span class="glyphicon glyphicon-pencil"></span>
+									Editar
+								</a>
+					        </li>
+					      </ul>
+					    </div>
+
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+	    
+
+	
+</div>

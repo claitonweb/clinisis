@@ -1,0 +1,31 @@
+<div ng-controller="FinanceiroLancamentoPagamentoCtrl">
+	<div ng-include="'core/common/views/cadastro-header.html'" scope="" onload=""></div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<tabs>
+				<pane title="Dados Gerais">
+					<form id="form-validation" novalidate name='formObj' method="post">
+						<div class="block">
+							<div class="form-horizontal">
+								<input-text field="nome" label="Nome"></input-text>
+								<input-select field="contaapagar" label="Conta A Pagar" options="contasapagar" ngchange="selecionaconta()"></input-select>
+								<input-select field="centrodecusto" label="Centro de Custo" options="centrosdecusto"></input-select>
+								<input-select field="domiciliobancario" label="Domicílio Bancário" options="domicilios"></input-select>
+								<input-text field="numeronota" label="Nota"></input-text>
+								<input-money field="valor" label="Valor" ngblur="copiavalororiginal()"></input-money>
+								<input-money field="valorimposto" label="Valor Imposto"></input-money>
+								<input-date field="data_vencimento" label="Data Vencimento"></input-date>
+								<input-date field="data_pagamento" label="Data Pagamento"></input-date>
+								<input-textarea field="descricao" label="Descrição"></input-textarea>
+								<input-multiselect field="impostos" label="Impostos" options="impostos" ngchange="selecionaimposto()"></input-multiselect>
+
+								<div ng-include="'core/common/views/cadastro-actions.html'"></div>
+							</div>
+						</div>
+					</form>
+				</pane>
+			</tabs>
+		</div>
+	</div>
+</div>

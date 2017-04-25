@@ -1,0 +1,67 @@
+<cadastro ctrl="AtendimentosCupomCtrl">
+    <tabs>
+        <pane title="Dados Gerais">
+            <formulario>
+				<grupo label="Vacina">
+						<div class="form-group">
+							 <input-text field="nomevacinapesquisa" label="Nome/Cód." ngkeyup="buscavacina()"></input-text>
+
+							 <div style="max-height: 200px;overflow: auto;">
+									  <table class="table table-bordered table-condensed table-striped table-hover">
+									     <tbody>
+									    	<tr 
+									    		style="cursor: pointer;" 
+									    		ng-repeat="(key, value) in vacinas" 
+									    		
+									    		ng-class="{ 'warning': value._id == modelObj.vacina}">
+									    		
+									    		<td>
+									    			{{value.nome}}
+									    		</td>
+									    		<td>
+									    			{{value.codigo}}
+									    		</td>
+									    		<td class='text-center'>
+									    			<button ng-click="adicionarvacina(value)" class="btn btn-primary">Selecionar</button>
+									    		</td>	
+									    	</tr>
+									    </tbody>
+									  </table>
+									</div>
+						</div>
+				</grupo>
+				<grupo label="Dados">	
+					
+					<div class="form-group">
+						<input-text field="codcupom" label="Cód do Cupom"></input-text>
+					</div>
+					
+					<div class="form-group" ng-class="{'has-warning' : modelObj.vacinanome == '' || modelObj.vacinanome == undefined }">
+						    
+								<input-text field="vacinanome" label="Vacina" ngreadonly="true"></input-text>
+							
+						        <span ng-if="modelObj.vacinanome == '' || modelObj.vacinanome == undefined" class="help-block text-danger">Selecione uma vacina</span>
+					</div>
+					<div class="form-group">
+						<input-money label="Valor" field="valor_vacina"></input-money>     	 
+					</div>
+								
+					<div class="form-group">
+						<input-text field="nome" required label="Nome"></input-text>
+						<input-text field="quantidade" required label="Quantidade"></input-text>
+						<input-text field="quantidade_usuario" required label="Quantidade por pessoa"></input-text>
+					</div>
+					<div class="form-group">
+						<input-hidden field="vacina"></input-hidden>
+						<input-date field="data_validade" required label="Data de Validade"></input-date>
+					</div>
+					<div class="form-group">
+						<input-textarea field="descricao" label="Descrição"></input-textarea>
+					</div>
+					
+				</grupo>
+				
+            </formulario>
+        </pane>
+    </tabs>
+</cadastro>

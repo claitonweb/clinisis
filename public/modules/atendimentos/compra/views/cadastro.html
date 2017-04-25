@@ -1,0 +1,334 @@
+<cadastro ctrl="AtendimentosCompraCtrl">
+
+
+<tabs>
+	<pane title="Dados Gerais">
+		<formulario>
+			<grupo label="Identificação" ng-if="usuariologado[0].estrategia != 'localCliente'">
+				<div class="row">
+					
+				<div class="col-md-2 text-center">
+					<div class="form-group">
+						<label class="col-md-12">Externa</label> 
+						<div class="btn-group">
+							<label class="btn btn-success btn-lg" ng-model="modelObj.externa" uib-btn-radio="1">Sim</label>
+							<label class="btn btn-danger btn-lg" ng-model="modelObj.externa" uib-btn-radio="0">Não</label>
+						</div>
+					</div>
+					</div>
+				</div>
+						
+				<div class="col-md-12">
+						
+						<div class="panel panel-info">
+						  <!-- Default panel contents -->
+						  <div class="panel-heading" style="overflow: hidden;">
+
+						  	<input-text 
+						  	ng-disabled="modelObj._id!=undefined && modelObj._id!=''"
+						  	field="nomepacientepesquisa" ngkeyup="buscapaciente()" label="Nome/CPF/CNPJ"></input-text>
+						  	
+						  	<input-hidden field="cliente"></input-hidden>	
+						 	
+						 	<input-select field="medico" label="Médico" options="medicos"></input-select>
+						  	
+
+
+						  </div>
+						  <div class="panel-body" ng-show="modelObj._id==undefined && cliente == undefined">
+						  	<span ng-show="clientes== '' || clientes == undefined">
+						  		Selecione um cliente
+						  	</span>
+						  </div>	
+						  <!-- Table -->
+						  <table ng-show='clientes.length > 0' class="table table-bordered table-condensed table-striped table-hover">
+						    <thead>
+						    	<tr>
+						    		<th>
+						    			Cliente
+						    		</th>
+						    		<th>
+						    			CPF/CNPJ
+						    		</th>
+						    		<th>
+						    			#
+						    		</th>
+						    	</tr>
+						    </thead>
+						    <tbody>
+						    	<tr 
+						    		style="cursor: pointer;" 
+						    		ng-repeat="(key, value) in clientes" 
+						    		ng-class="{ 'warning': value._id == modelObj.cliente}">
+						    		
+						    		<td>
+						    			{{value.nome}}
+						    		</td>
+						    		<td>
+						    			{{value.cpfcnpj}}
+						    		</td>
+						    		<td class='text-center'>
+						    			<button ng-click="modelObj.cliente = value._id;modelObj.nomepacientepesquisa = value.nome;modelObj.medico = value.medico" class="btn btn-primary">Selecionar</button>
+						    		</td>	
+						    	</tr>
+						    </tbody>
+						  </table>
+						</div>
+						
+				</div>
+			
+				
+			</grupo>
+			<!-- ng-show="modelObj.cliente!='' && modelObj.cliente!=undefined" -->
+			<grupo label="Vacinas">
+				<div class="col-md-6" ng-hide="modelObj._id!=undefined">
+					
+					<tabs>
+		    
+				            <pane title="Vacinas">
+						      <div class="panel panel-default" style="border: none;">
+									  <!-- Default panel contents -->
+									 <div class="panel-body">
+									  	<input-text field="nomevacinapesquisa" label="Nome/Cód." tam='8' ngkeyup="buscavacina()"></input-text>
+									  	<input-text field="qtdvacinapesquisa" label="Qtd" tam='4'></input-text>
+									 </div>	
+									  
+									  <div style="height: 200px;overflow: auto;">
+									  <table class="table table-bordered table-condensed table-striped table-hover">
+									    <thead>
+									    	<tr>
+									    		<th>
+									    			Nome
+									    		</th>
+									    		<th>
+									    			Código 
+									    		</th>
+									    		<th>
+									    			Valor
+									    		</th>
+									    		<th>
+									    			#
+									    		</th>
+									    	</tr>
+									    </thead>
+									     <tbody>
+									    	<tr 
+									    		style="cursor: pointer;" 
+									    		ng-repeat="(key, value) in vacinas" 
+									    		
+									    		ng-class="{ 'warning': value._id == modelObj.vacina}">
+									    		
+									    		<td>
+									    			{{value.nome}}
+									    		</td>
+									    		<td>
+									    			{{value.codigo}}
+									    		</td>
+									    		<td>
+									    			{{value.valor_venda | currency}}
+									    		</td>
+									    		<td class='text-center'>
+									    			<button ng-click="adicionarvacina(value)" class="btn btn-primary">Selecionar</button>
+									    		</td>	
+									    	</tr>
+									    </tbody>
+									  </table>
+									</div>
+									  
+									  
+								</div>  
+						    </pane>
+						    <pane title="Pacotes Vacinais">
+						       <div class="panel panel-default" style="border: none;">
+									  <!-- Default panel contents -->
+									 <div class="panel-body">
+									  
+									    <input-text field="nomepacotepesquisa" label="Nome/Cód." tam='12' ngkeyup="buscapacote()"></input-text>
+									 </div>	
+									  					  
+								</div>  
+								<table class="table table-bordered table-condensed table-striped table-hover">
+									    <thead>
+									    	<tr>
+									    		<th>
+									    			Nome
+									    		</th>
+									    		<th>
+									    			Código 
+									    		</th>
+									    		<th>
+									    			#
+									    		</th>
+									    	</tr>
+									    </thead>
+									     <tbody>
+									    	<tr 
+									    		style="cursor: pointer;" 
+									    		ng-repeat="(key, value) in pacotes">
+									    		<td>
+									    			{{value.nome}}
+									    		</td>
+									    		<td>
+									    			{{value.codigo}}
+									    		</td>
+									    		<td class='text-center'>
+									    			<button ng-click="adicionarpacote(value)" class="btn btn-primary">Selecionar</button>
+									    		</td>	
+									    	</tr>
+									    </tbody>
+									  </table>
+						    
+						    </pane>
+						    
+				    </tabs>    
+				
+				
+					  	
+				</div>
+				
+				<div class="col-md-6">
+					<uib-tabset>
+					    <uib-tab index="0" heading="Selecionadas">
+					    	<div class="panel panel-default" style="border: none;margin-bottom: 0;">
+								<div style="height: 230px;overflow: auto;">
+									<table class="table table-bordered table-condensed table-striped table-hover">
+									    <thead>
+									    	<tr>
+									    		<th>
+									    			Nome
+									    		</th>
+									    		<th>
+									    			Valor
+									    		</th>
+									    		<th>
+									    			#
+									    		</th>
+									    	</tr>
+									    </thead>
+									    <tbody>
+									    	<tr 
+									    		style="cursor: pointer;" 
+									    		ng-repeat="(key, value) in modelObj.vacinas"
+									    		>
+									    		
+									    		<td>
+									    			<span ng-if='value.objvacina'>
+									    			{{value.objvacina.nome}} / {{value.objvacina.codigo}}
+									    			</span>
+									    			<span ng-if='value.vacina'>
+									    			{{value.vacina.nome}} / {{value.vacina.codigo}}
+									    			</span>
+									    		</td>
+									    		<td>
+									    			<input type='text' ng-model='modelObj.vacinas[$index].valor' ui-money-mask>
+									    		</td>
+									    		<td class='text-center'>
+									    			<button ng-disabled="modelObj._id!=undefined" ng-click="removerVacina($index)" class="btn btn-danger">Remover</button>
+									    		</td>	
+									    	</tr>
+									    </tbody>
+									</table>
+								</div>
+								<div class="panel-footer">
+									Total : {{total | currency}}
+									<div class='pull-right' ng-if='!value.vacina'>
+										<button ng-click="atualizarValores()" class="btn btn-success">Atualizar</button>
+									</div>
+									<div class='clearfix'></div>
+								</div>
+							</div>
+					    </uib-tab>
+					</uib-tabset>
+				</div>
+				
+				
+			</grupo>
+			
+			<grupo label="Pagamento" ng-if="usuariologado[0].estrategia != 'localCliente'">
+				<div class="col-md-12">
+					<div class="panel panel-info">
+						  <!-- Default panel contents -->
+						  <div class="panel-heading">
+						  		<div class="form-group">
+							  		<input-select tam='3' field="idformapagamento" label="Forma" options="formaspagamento" ngchange="modelObj.periodo = 30">
+							  		</input-select>
+							  		<input-money tam='3' field="valorpgto" label="Valor"></input-money>
+							  		<input-text field="qtdparcela" label="Parc." tam='2'></input-text>
+							  		<input-date tam='3' field='datavencimento' label='Dt Pgto'></input-date>
+						  		</div>
+						  		<div class="form-group">
+									<input-select tam='3' 
+
+									field="periodo" label="Período" options="periodos">
+							  		</input-select>
+							  		<div class="col-md-3 pull-right">
+										<button ng-click="adicionarpagamento()" 
+												class="btn btn-primary" 
+												ng-disabled='total<=0 || saldo <=0'>
+												Adicionar
+										</button>
+									</div>
+								</div>
+						  		
+						   </div>
+						   
+						   <!-- Table -->
+						  <table class="table table-bordered table-condensed table-striped table-hover">
+						    <thead>
+						    	<tr>
+						    		<th>
+						    			Forma
+						    		</th>
+						    		<th>
+						    			Valor
+						    		</th>
+						    		<th>
+						    			Pagamento
+						    		</th>
+						    		<th>
+						    			#
+						    		</th>
+						    	</tr>
+						    </thead>
+						     <tbody>
+						    	<tr 
+						    		style="cursor: pointer;" 
+						    		ng-repeat="(key, value) in pagamentos" >
+						    		
+						    		<td>
+						    			{{value.formapagamento.nome}}
+						    		</td>
+						    		<td>
+						    			{{value.valor | currency}}
+						    		</td>
+						    		<td>
+						    		 	{{value.data_pagamento | date : "dd/MM/yyyy"}}
+						    		</td>
+						    		<td class='text-center'>
+						    			<button 
+						    			ng-disabled="modelObj._id!=undefined"
+						    			ng-click="removerPagamento($index)" class="btn btn-danger">Remover</button>
+						    		</td>	
+						    	</tr>
+						    </tbody>
+						    <tfoot>
+						    	<tr>
+						    		<td colspan="4">
+						    		  Saldo : {{saldo | currency}}
+						    		</td>
+						    	</tr>
+						    </tfoot>
+						  </table>
+			
+					</div>
+				</div>	
+			</grupo>
+			
+			<div class="alert alert-success" ng-show="mensagem.texto">{{mensagem.texto}}</div>
+            <div class="alert alert-danger" ng-show="mensagem.erro">{{mensagem.erro}}</div>
+                                
+		</formulario>
+	</pane>
+
+	</tabs>
+</cadastro>

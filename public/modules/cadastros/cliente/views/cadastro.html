@@ -1,0 +1,234 @@
+<cadastro ctrl="CadastrosClienteCtrl">
+    <tabs>
+    
+        <pane title="Dados Gerais">
+            <formulario>
+            
+            	<a ng-if='modelObj._id!=undefined' href="#/atendimentos/compra/cadastro/?cliente={{modelObj._id}}" 
+							class="btn btn-effect-ripple btn-effect-ripple btn-primary">
+							
+							<span class="glyphicon glyphicon-plus"></span>
+								&nbsp;&nbsp;
+							Nova Compra
+				</a>
+				<grupo label="Dados Básicos">
+					<div class="row" ng-if="modelObj.clientepai!=undefined">
+					  <div class="form-group">
+					  	<div class="col-md-6">
+						    <label class="col-sm-4 control-label">Pai</label>
+						    <div class="col-sm-8">
+						      <p class="form-control-static">{{modelObj.clientepai.nome}}</p>
+						    </div>
+						</div>  	
+					</div>
+				  </div>
+					<div class="row">
+						<div class="form-group">
+							<input-select field="tipopessoa" label="Tipo Pessoa" options="" required>
+						    <option value="j">Pessoa Jurídica</option>
+						    <option value="f">Pessoa Física</option>
+							</input-select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+						
+						<input-select field="medico" label="Médico" options="medicos"></input-select>
+						</div>
+				  </div>
+					<div class="row" ng-if="modelObj.tipopessoa=='f'">
+						<div class="form-group">
+							<input-text field="nome" label="Nome Completo" required></input-text>
+						</div>	
+					</div>
+
+					<div class="row" ng-if="modelObj.tipopessoa=='f'">
+						<div class="form-group">
+							<input-cpf field="cpfcnpj" label="CPF"></input-cpf>
+							<input-date field="dtnascimento" label="Data Nascimento"></input-date>
+						</div>	
+					</div>
+					<div class="row" ng-if="modelObj.tipopessoa=='j'">
+						<div class="form-group">
+							<input-cnpj field="cpfcnpj" label="CNPJ"></input-cnpj>
+							<input-text field="nome" label="Razão Social"></input-text>
+						</div>
+					</div>
+					
+					<div class="row" ng-if="modelObj.tipopessoa=='j'">
+						<div class="form-group">
+							<input-text field="nomefantasia" label="Nome Fantasia"></input-text>
+						</div>	
+					</div>
+				</grupo>
+
+				<grupo label="Dependentes">
+					<div class="form-group">
+						<div class="row">
+							<input-text field="dependente.nome" label="Nome Completo" 
+							tam="5"></input-text>
+							
+							<input-date tam="5" field="dependente.dtnascimento" 
+							label="Data Nascimento"></input-date>
+							
+							<a href class="btn btn-primary" ng-click="adicionarDependente()">Adicionar</a>
+							
+						</div>
+
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-12">	
+
+							<table class="table table-striped table-bordered table-vcenter">
+								<tr>
+									<th>
+										Nome
+									</th>
+									<th>
+										Dt. Nascimento
+									</th>
+								</tr>
+								<tr ng-repeat="obj in dependentes">
+									<td>
+										{{obj.nome}}
+									</td>
+									<td>
+										{{obj.dtnascimento | date:'dd/MM/yyyy'}}
+									</td>
+								</tr>
+							</table>
+							</div>
+						</div>
+					</div>
+				</grupo>
+
+				<grupo label="Contatos">
+					<div class="row">
+						<div class="form-group">
+							<input-telefone field="telefone" label="Telefone"></input-telefone>
+							<input-email field="email" label="Email"></input-email>
+						</div>	
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<input-text field="responsavel1" label="Responsável 1"></input-text>
+						</div>	
+					</div>
+				</grupo>
+
+				<grupo-endereco field="endereco" label="Endereço" model="modelObj.endereco[0]"></grupo-endereco>
+
+				
+
+				<grupo label="Dados Adicionais">
+					<input-textarea field="observacoes" label="Observações"></input-textarea>
+				</grupo>
+
+				<grupo label="Identificação">
+				  
+				  
+					
+				  <div class="row">
+						<div class="form-group">
+							<input-email field="login" label="Login"></input-email>
+							<input-password field="password" label="Senha"></input-password>
+							<input-hidden field="oldpassword"></input-hidden>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group">
+							<input-date field="dtcadastro" label="Data de Cadastro" disabled></input-date>
+							<input-date field="dtmodificacao" label="Última Modificação" disabled></input-date>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<input-check field="ativo" label="Ativo" value="1"></input-check>
+						</div>	
+					</div>
+				</grupo>
+
+            </formulario>
+        </pane>
+        <pane title="Atendimentos">
+			<div class="block">
+				<div class="form-horizontal">
+
+
+						<div class="alert alert-info" ng-if="atendimentos.length <=0">
+							Não há atendimentos para exibir.
+						</div>
+						<div class="table-responsive" ng-if="atendimentos.length > 0">
+							<table id="example-datatable" class="table table-striped table-bordered table-vcenter">
+							<thead>
+								<tr>
+									<th>Compra</th>
+									<th>Data Atendimento</th>
+									<th>Profissional</th>
+									<th>Vacina</th>
+									<th>Status</th>
+									<th width="200">Atendimento</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="obj in atendimentos | orderBy: ['data_atendimento', 'compra.codigo'] ">
+									<td>
+										<span>
+											{{obj.saida.compra.codigo}}
+										</span>		
+									</td>
+									<td>
+										<span>
+											{{obj.data_atendimento | date : 'dd/MM/yyyy'}}
+										</span>
+									</td>
+									<td>
+										<span>
+											{{obj.profissional.nome}}
+										</span>		
+									</td>
+									
+									<td>
+										<span>
+											{{obj.saida.lancamento.vacina.nome}}
+										</span>		
+									</td>
+
+									<td>
+										<span ng-if="obj.status == 'AG'">
+											Aguardando
+										</span>
+										<span ng-if="obj.status == 'AT'">
+											Em Atendimento
+										</span>
+										<span ng-if="obj.status == 'FI'">
+											Finalizado
+										</span>
+										<span ng-if="obj.status == 'CA'">
+											Cancelado
+										</span>		
+									</td>
+
+									<td>
+										<div class="btn-group" role="group" aria-label="...">
+										<a ui-sref="atendimentos-compra-atendimento({id : '{{obj.saida._id}}',idatendimento : '{{obj._id}}' })" class="btn btn-primary btn-sm" title="Gerar Atendimento">
+											<!--span class="glyphicon glyphicon-eye-open"></span-->
+											<span class="glyphicon glyphicon-pencil">
+												
+											</span>
+										</a>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						</div>
+					
+				</div>
+			</div>
+        </pane>
+    </tabs>
+</cadastro>

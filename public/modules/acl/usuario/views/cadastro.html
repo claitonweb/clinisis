@@ -1,0 +1,26 @@
+<div ng-controller="AclUsuarioCtrl">
+	<div ng-include="'core/common/views/cadastro-header.html'" scope="" onload=""></div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<tabs>
+				<pane title="Dados Gerais">
+					<form id="form-validation" novalidate name='formObj' method="post">
+						<div class="block">
+							<div class="form-horizontal">
+								<input-text field="nome" label="Nome"></input-text>
+								<input-text field="username" label="Usuário"></input-text>
+								<input-password field="password" label="Senha"></input-password>
+								<input-hidden field="oldpassword" label="Senha"></input-hidden>
+								<input-select field="perfil" label="Perfil" options="perfis"></input-select>
+								<input-check field="ativo" label="Ativo"></input-check>
+
+								<div ng-include="'core/common/views/cadastro-actions.html'"></div>
+							</div>
+						</div>
+					</form>
+				</pane>
+			</tabs>
+		</div>
+	</div>
+</div>

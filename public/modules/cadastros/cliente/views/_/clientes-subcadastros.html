@@ -1,0 +1,38 @@
+<div class="block" ng-show="cliente._id" ng-controller="CadastrosClientesSubCadastrosCtrl">
+	<div ng-show="cliente._id && !clienteexterno">
+		<a href class="btn btn-effect-ripple btn-effect-ripple btn-primary" ng-click="cadastrarRepresentado()">Cadastrar Representado</a>
+	</div>
+
+	<div class="table-responsive">
+		<table class="table table-striped table-bordered table-vcenter" style="margin-top: 20px;">
+			<thead>
+				<tr>
+					<th>CPF/CNPJ</th>
+					<th>Nome/Razão Social</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="sub in subclientes">
+					<td>
+						<a href ui-sref="cadastros-clientes-editar({id : '{{sub._id}}' })">
+							<span ng-if="sub.tipopessoa=='f'">
+								{{sub.cpf}}
+							</span>
+							<span ng-if="sub.tipopessoa=='j'">
+								{{sub.cnpj}}
+							</span>
+						</a>
+					</td>
+					<td>
+						<span ng-if="sub.tipopessoa=='f'">
+							{{sub.nome}}
+						</span>
+						<span ng-if="sub.tipopessoa=='j'">
+							{{sub.razaosocial}}
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

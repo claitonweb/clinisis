@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "581dfe096014e0186fc95481",
+    "nome": "Banrisul - 0100",
+    "codigo": "C1",
+    "banco": "581dfd9c6014e0186fc95480",
+    "__v": 0
+  },
+  {
+    "_id": "58d02e69f4aeef9b63f0d32b",
+    "banco": "58d02dcff4aeef9b63f0d328",
+    "nome": "Unicred - 2710",
+    "codigo": "C2",
+    "__v": 0
+  }
+]

@@ -1,0 +1,145 @@
+<cadastro>
+	<tabs>
+		<pane title="Atendimento">
+			<formulario>
+				<grupo label="Dados da Compra {{compra.compra.codigo}}">
+				<div class="form-group">
+				    <div class="col-sm-3">
+				      <p class="form-control-static">
+				      	<label>Cliente : &nbsp;</label>
+				      	{{compra.compra.cliente.nome}}
+						</p>
+				    </div>
+				    <div class="col-sm-3">
+				      <p class="form-control-static">
+				      	<label>Data : &nbsp;</label>  
+				      	{{compra.compra.data_atendimento | date : "dd/MM/yyyy H:mm"}}
+				      </p>
+				    </div>
+				    
+				</div>
+
+				</grupo>
+				<grupo label="Dados do Atendimento">
+					<div class="form-group">
+						<div class="col-sm-3">
+					      <p class="form-control-static">
+					      	<label>Atendente : &nbsp;</label>  
+					      	{{compra.usuario.nome}}
+					      </p>
+						</div>
+						<div class="col-sm-3">
+					      <p class="form-control-static">
+					      	<label>Vacina : &nbsp;</label>  
+					      	{{compra.lancamento.vacina.nome}}
+					      </p>
+						</div>
+						<div class="col-sm-2">
+					      <p class="form-control-static">
+					      	<label>Lote : &nbsp;</label>  
+					      	{{compra.lancamento.lote}}
+					      </p>
+						</div>
+						<div class="col-sm-2">
+					      <p class="form-control-static">
+					      	<label>Cliente : &nbsp;</label>  
+					      	  
+					      	  {{modelObj.nomepacientepesquisa}}
+					      	  
+					      </p>
+						</div>
+					</div>
+					<div class="panel panel-info">
+							  <!-- Default panel contents -->
+							  <div class="panel-heading">
+							  	  <div class="form-group">	
+							  	  	<input-text 
+							  	  				tam ="4"
+							  	  				field="nomepacientepesquisa" 
+							  	  				ngkeyup="buscapaciente()" 
+								  				ngdisabled="modelObj.status == 'FI'"
+								  				label="Nome/CPF/CNPJ"
+								  				></input-text>
+
+								  	<input-date tam='3' ngdisabled="modelObj.status == 'FI'" field='data_atendimento' label='Dt Atend'></input-date>
+
+								  	<input-hidden field="cliente"></input-hidden>
+								  	
+								 	<input-select field="status" label="Status" options="status" tam="3"></input-select>
+							
+							  		
+
+							  	</div> 
+							  	<div class="form-group">
+								 	<input-select field="profissional" label="Profissional" 
+							  				  options="profissionais" tam="3"></input-select>
+
+							  		<input-select field="lado" label="Membro" options="lados" tam="4"></input-select>
+
+							  		<input-select field="dose" label="Dose" options="doses" tam="4"></input-select>
+								  	
+							  			
+								</div>
+								<div class="form-group">
+									<div class="col-md-5">
+											<label class="col-md-3 control-label" for="observacoes">
+												Observações
+											</label>
+											<div class="col-md-9"> 
+												<textarea id="observacoes" name="observacoes" ng-model="modelObj.observacoes" class="form-control" rows="5"></textarea>
+											</div>
+										</div>
+								</div>
+							  </div>
+							  
+							  <div ng-hide="modelObj.cliente.nome!=undefined">
+							  	<div class="panel-body" ng-show="clientes== '' || clientes == undefined">
+									Selecione um cliente
+						  		</div>	
+							  </div>
+							  <!-- Table -->
+							  <table ng-show='clientes.length > 0' class="table table-bordered table-condensed table-striped table-hover">
+							    <thead>
+							    	<tr>
+							    		<th>
+							    			Cliente
+							    		</th>
+							    		<th>
+							    			CPF/CNPJ
+							    		</th>
+							    		<th>
+							    			#
+							    		</th>
+							    	</tr>
+							    </thead>
+							    <tbody>
+							    	<tr 
+							    		style="cursor: pointer;" 
+							    		ng-repeat="(key, value) in clientes" 
+							    		ng-class="{ 'warning': value._id == modelObj.cliente}">
+							    		
+							    		<td>
+							    			{{value.nome}}
+							    		</td>
+							    		<td>
+							    			{{value.cpfcnpj}}
+							    		</td>
+							    		<td class='text-center'>
+							    			<button ng-click="selecionapaciente(value)" class="btn btn-primary">Selecionar</button>
+							    		</td>	
+							    	</tr>
+							    </tbody>
+							  </table>
+							</div>
+							<div ng-if="mensagem.erro!='' && mensagem.erro!=undefined" class="alert alert-danger">
+								{{mensagem.erro}}
+							</div>
+							
+				</grupo>
+			</formulario>
+			
+		</pane>
+	</tabs>		
+</cadastro>
+
+ 

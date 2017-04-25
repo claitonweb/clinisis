@@ -1,0 +1,18 @@
+<ul class="sidebar-nav">
+	<li>
+		<a href ui-sref="index" class="active"><i class="fa fa-home sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Início</span></a>
+	</li>
+
+	<li ng-repeat="(key, value) in menus" emit-last-repeater-element>
+		<a class="sidebar-nav-menu">
+			<i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+			<i class="gi gi-nameplate sidebar-nav-icon"></i>
+			<span class="sidebar-nav-mini-hide">{{key}} </span>
+		</a>
+		<ul>
+			<li ng-repeat="(key2, value2) in value">
+				<a href ui-sref="{{value2.state}}">{{key2}}</a>
+			</li>
+		</ul>
+	</li>
+</ul>

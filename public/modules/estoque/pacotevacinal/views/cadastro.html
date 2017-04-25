@@ -1,0 +1,30 @@
+<div ng-controller="EstoquePacoteVacinalCtrl">
+	<div ng-include="'core/common/views/cadastro-header.html'" scope="" onload=""></div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<tabs>
+				<pane title="Dados Gerais">
+					<form id="form-validation" novalidate name='formObj' method="post">
+						<div class="block">
+							<div class="form-horizontal">
+								<div class="row">
+									<input-text field="nome" required label="Nome"></input-text>
+									<input-text field="codigo" label="Código"></input-text>
+								</div>
+								
+								<div class="row">
+									<input-select 
+										field="vacinas" required label="Vacinas" multiple="multiple" options="vacinas">
+									</input-select>
+								</div>	
+								
+								<div ng-include="'core/common/views/cadastro-actions.html'"></div>
+							</div>
+						</div>
+					</form>
+				</pane>
+			</tabs>
+		</div>
+	</div>
+</div>

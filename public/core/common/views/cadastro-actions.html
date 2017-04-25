@@ -1,0 +1,21 @@
+<div class="form-group form-actions" ng-if="exibeactions==undefined || exibeactions != false">
+
+	<div class="col-lg-12 text-right" style="padding: 20px 45px;">
+		<button type="button" ng-click='salvar(formObj)' class="btn btn-effect-ripple btn-primary">Salvar</button>
+
+		<span ng-repeat="(key, value) in botoes">
+		<button type="button" 
+				ng-click='chamafuncaoclick(value)' 
+				ng-class="value.class" 
+				class="btn btn-effect-ripple" 
+				>
+			{{value.titulo}}
+		</button>
+		</span>
+		
+		<a ng-if="statecancela == undefined || statecancela == ''" ui-sref="{{states.lista.fullName}}" class="btn btn-effect-ripple btn-danger">Cancelar</a>
+
+		<a ng-if="statecancela != undefined && statecancela != ''" ui-sref="{{statecancela}}" class="btn btn-effect-ripple btn-danger">Cancelar</a>
+
+	</div>
+</div>

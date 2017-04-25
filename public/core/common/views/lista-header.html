@@ -1,0 +1,42 @@
+<div class="content-header">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="header-section">
+				<h1>Consulta de {{config.resource.desc}}</h1>
+			</div>
+		</div>
+		<div class="col-sm-6 hidden-xs">
+			<div class="header-section">
+				<ul class="breadcrumb breadcrumb-top">
+					<li><a href ui-sref="/">Início</a></li>
+					<li>{{config.module.desc}}</li>
+					<li>{{config.resource.desc}}</li>
+					<li><a href ui-sref="{{states.lista.fullName}}">Consulta</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="header-section">
+			<div class="form-horizontal">
+				<div class="form-group col-lg-12"></div>
+				<div class="form-group col-lg-9">
+					<div class="col-md-6">
+						<input type="text" ng-model='searchParams.nome' class="form-control" placeholder="Pesquise pelo Nome">
+					</div>
+					<a href ng-click="lista(searchParams)" class="btn btn-effect-ripple btn-effect-ripple btn-primary">
+						<span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;Pesquisar
+					</a>
+				</div>
+				<div class="form-group col-lg-3">
+					<div class="text-right">
+						<a href ng-click="pesquisaAvancada = !pesquisaAvancada" class="btn btn-effect-ripple btn-effect-ripple btn-primary">
+							<span class="fa fa-search-plus"></span>&nbsp;&nbsp;Pesquisa Avançada
+						</a>
+						<a href ui-sref="{{states.cadastro.fullName}}" class="btn btn-effect-ripple btn-effect-ripple btn-primary">
+							<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Novo
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
